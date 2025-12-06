@@ -7,9 +7,10 @@
             font-family: Arial, sans-serif;
             line-height: 1.6;
             margin: 20px;
+            background-color: #F5F5F5;
         }
         nav {
-            background-color: #f0f0f0;
+            background-color: #fffacd;
             padding: 10px;
             border-radius: 5px;
             margin-bottom: 20px;
@@ -23,7 +24,7 @@
             text-decoration: underline;
         }
         .card {
-            background-color: #f9f9f9;
+            background-color: #e6e6fa;
             padding: 20px;
             border-radius: 10px;
             margin: 20px 0;
@@ -31,36 +32,36 @@
     </style>
 </head>
 <body>
-    <nav style="background-color: #FFE4B5; padding: 14px; text-align: center;">
+    <nav style="color: #ffffff;background-color: #faeedd; padding: 14px; text-align: center; width: 80%; margin: 0 auto;">
         <a href="/">Главная</a>
         <a href="/users">Пользователи</a>
         <a href="/currencies">Валюты</a>
         <a href="/author">Об авторе</a>
     </nav>
 
-    <h1 style="text-align: center;">Добро пожаловать в CurrenciesListApp!</h1>
-
-    <div class="card">
-        <h2>О приложении</h2>
-        <p><strong>Версия:</strong> 1.0.0</p>
-        <p><strong>Автор:</strong> </p>
-        <p><strong>Группа:</strong> P3120</p>
-    </div>
+    <h1 style="background-color: #fcb4d5; text-align: center;">CURRENCIES DAILY</h1>
 
     <div class="card">
         <h2>Статистика</h2>
-        <p>Пользователей в системе: 3</p>
-        <p>Валют отслеживается: 0</p>
+        <p>Пользователей в системе: {{total_users}}</p>
+        <p>Валют отслеживается: {{ total_currencies }}</p>
     </div>
 
     <div class="card">
-        <h2>Возможности</h2>
+        <h2>Руководство:</h2>
         <ul>
-            <li>Просмотр курсов валют в реальном времени</li>
-            <li>Управление пользователями</li>
-            <li>Подписка на интересующие валюты</li>
-            <li>Отслеживание изменений курсов</li>
+            <li>Воспользуйтесь вкладкой пользователи для просмотра людей и прикрепленных валют</li>
+            <li>Воспользуйтесь вкладкой валюты, чтоб увидеть актуальный курс всех валют</li>
+            <li>Воспользуйтесь вкладкой об авторе, чтоб узнать больше</li>
         </ul>
     </div>
+
+    <div class="card">
+        <h2>О приложении</h2>
+        <p><strong>Версия:</strong> 1.1.0</p>
+        <p><strong>Автор:</strong> Fedorov Vyacheslav </p>
+        <p><strong>Группа:</strong> P3120</p>
+    </div>
+
 
 </body></html>

@@ -21,10 +21,10 @@ tpl_author = env.get_template("author.html")
 main_author = Author('Vyacheslav Fedorov', 'P3120')
 app = App('CurrenciesListApp', '1.0.0', main_author.name)
 
-users = [User(504485, 'Fedorov V'),
-         User(505301, 'Shanin I'),
-         User(504634, 'Halilov Ch'),
-         User(504695, 'Karelina M')]
+users = [User('504485', 'Fedorov V'),
+         User('505301', 'Shanin I'),
+         User('504634', 'Halilov Ch'),
+         User('504695', 'Karelina M')]
 
 currencies = []
 user_currencies = []
@@ -101,9 +101,16 @@ def subscribe_user_to_currency(user_id, currency_id):
     for uc in user_currencies:
         if uc.user_id == user_id and uc.currency_id == currency_id:
             return False
-    new_id = max([uc.id for uc in user_currencies], default=0) + 1
-    user_currencies.append(UserCurrency(new_id, user_id, currency_id))
+
+    if user_currencies:
+        max_id = max(int(uc.ucid) for uc in user_currencies)
+        new_ucid = str(max_id + 1)
+    else:
+        new_ucid = '1'
+
+    user_currencies.append(UserCurrency(new_ucid, user_id, currency_id))
     return True
+
 
 def unsubscribe_user_from_currency(user_id, currency_id):
     global user_currencies
@@ -162,10 +169,8 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
                                         api_type='JSON API ЦБ РФ')
 
             elif path == '/currencies':
-                update_requested = "update" in query_params
 
                 success = load_currencies()
-                show_message = success if update_requested else None
 
                 last_update = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
@@ -237,6 +242,45 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             self.send_header('Content-Type', 'text/html; charset=utf-8')
             self.end_headers()
             self.wfile.write(html.encode("utf-8"))
+
+        except Exception as e:
+            self._render_error(500, f'Внутренняя ошибка сервера: {e}')
+
+    def do_POST(self):
+        parsed_path = urlparse(self.path)
+        path = parsed_path.path
+        query_params = parse_qs(parsed_path.query)
+
+        try:
+            if path == '/user':
+                user_id = int(query_params.get('id', [0])[0])
+                user = get_user_by_id(user_id)
+                if not user:
+                    self._render_error(404, "Пользователь не найден")
+                    return
+
+                # Получаем данные POST
+                length = int(self.headers.get('Content-Length', 0))
+                post_data = self.rfile.read(length).decode()
+                data = parse_qs(post_data)
+
+                currency_id = data.get('currency_id')[0]
+                action = data.get('action')[0]
+
+                if action == 'subscribe':
+                    subscribe_user_to_currency(user_id, currency_id)
+                elif action == 'unsubscribe':
+                    unsubscribe_user_from_currency(user_id, currency_id)
+
+                # Редирект обратно на страницу пользователя
+                self.send_response(303)
+                self.send_header('Location', f'/user?id={user_id}')
+                self.end_headers()
+                return
+
+            else:
+                self._render_error(404, "Страница не найдена")
+                return
 
         except Exception as e:
             self._render_error(500, f'Внутренняя ошибка сервера: {e}')

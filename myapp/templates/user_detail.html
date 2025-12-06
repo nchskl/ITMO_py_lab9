@@ -7,6 +7,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            background-color: #F5F5F5;
         }
         nav {
             background-color: #f0f0f0;
@@ -59,14 +60,14 @@
     </style>
 </head>
 <body>
-    <nav>
+    <nav style="color: #ffffff;background-color: #faeedd; padding: 14px; text-align: center; width: 80%; margin: 0 auto;">
         <a href="/">Главная</a>
         <a href="/users">Все пользователи</a>
         <a href="/currencies">Валюты</a>
         <a href="/author">Об авторе</a>
     </nav>
 
-    <h1>Пользователь: {{user.name}} (ID: {{user.id}})</h1>
+    <h1 style="background-color: #fcb4d5; text-align: center;">Пользователь: {{user.username}} (ID: {{user.uid}})</h1>
 
     <div class="section">
         <h2>Текущие подписки ({{ total_subscribed }})</h2>
@@ -86,9 +87,9 @@
                 <td>{{ "%.4f"|format(currency.value) }}</td>
                 <td>{{ currency.nominal }}</td>
                 <td>
-                    <form method="POST" action="/subscribe" style="display: inline;">
-                        <input type="hidden" name="user_id" value="{{ user.id }}">
-                        <input type="hidden" name="currency_id" value="{{ currency.id }}">
+                    <form method="POST" action="/user?id={{ user.uid }}" style="display: inline;">
+                        <input type="hidden" name="user_id" value="{{ user.uid }}">
+                        <input type="hidden" name="currency_id" value="{{ currency.cid }}">
                         <input type="hidden" name="action" value="unsubscribe">
                         <button type="submit" class="unsubscribe">Отписать</button>
                     </form>
@@ -119,9 +120,9 @@
                 <td>{{ "%.4f"|format(currency.value) }}</td>
                 <td>{{ currency.nominal }}</td>
                 <td>
-                    <form method="POST" action="/subscribe" style="display: inline;">
-                        <input type="hidden" name="user_id" value="{{ user.id }}">
-                        <input type="hidden" name="currency_id" value="{{ currency.id }}">
+                    <form method="POST" action="/user?id={{ user.uid }}" style="display: inline;">
+                        <input type="hidden" name="user_id" value="{{ user.uid }}">
+                        <input type="hidden" name="currency_id" value="{{ currency.cid }}">
                         <input type="hidden" name="action" value="subscribe">
                         <button type="submit">Подписать</button>
                     </form>
