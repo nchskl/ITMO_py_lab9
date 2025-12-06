@@ -1,10 +1,11 @@
 class Currency:
-    def __init__(self, cid: str, num_code: str, name: str, value: float, nominal: str):
+    def __init__(self, cid: str, num_code: str, char_code: str, name: str, value: float, nominal: str):
         self.cid = cid
         self.num_code = num_code
         self.name = name
         self.value = value
         self.nominal = nominal
+        self.char_code = char_code
 
     @property
     def cid(self) -> str:
@@ -26,12 +27,22 @@ class Currency:
     def nominal(self) -> int:
         return self.__nominal
 
+    @property
+    def char_code(self) -> str:
+        return self.__char_code
+
+    @char_code.setter
+    def char_code(self, char_code: str):
+        if not isinstance(char_code, str):
+            raise TypeError("Char_code must be a string.")
+        if char_code == "":
+            raise ValueError("Char_code cannot be empty.")
+        self.__char_code = char_code.strip()
+
     @cid.setter
     def cid(self, cid: str):
-        if not isinstance(id, str):
-            raise TypeError("ID must be an integer.")
-        if int(cid) <= 0:
-            raise ValueError("ID must be a positive integer.")
+        if not isinstance(cid, str):
+            raise TypeError("ID must be an string.")
         self.__cid = cid
 
     @num_code.setter

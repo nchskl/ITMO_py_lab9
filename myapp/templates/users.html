@@ -1,10 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Пользователи</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        nav {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        nav a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #333;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
 </head>
 <body>
+    <nav>
+        <a href="/">Главная</a>
+        <a href="/users">Пользователи</a>
+        <a href="/currencies">Валюты</a>
+        <a href="/author">Об авторе</a>
+    </nav>
 
+    <h1>Список пользователей</h1>
+
+    {% if users %}
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Имя пользователя</th>
+            <th>Действия</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.uid }}</td>
+            <td>{{ user.username }}</td>
+            <td>
+                <a href="/user?id={{ user.uid }}">Просмотр</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p>Всего пользователей: {{total}}</p>
+    {% else %}
+    <p>Нет пользователей в системе</p>
+    {% endif %}
 </body>
 </html>

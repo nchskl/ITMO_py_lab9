@@ -21,7 +21,7 @@ class User:
 
     @uid.setter
     def uid(self, uid: str):
-        if not isinstance(uid, str):
+        if not isinstance(uid, (int, str)):
             raise TypeError("ID must be a string.")
         if int(uid) < 0 or int(uid) > 999999:
             raise ValueError("ID must be a non-negative integer and less than 999,999")

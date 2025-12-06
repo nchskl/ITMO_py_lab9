@@ -1,10 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Курсы валют</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        nav {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        nav a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #333;
+        }
+        .info {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #FF9800;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        .update-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .update-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
+    <nav>
+        <a href="/">Главная</a>
+        <a href="/users">Пользователи</a>
+        <a href="/currencies">Валюты</a>
+        <a href="/author">Об авторе</a>
+    </nav>
 
+    <h1>Курсы валют</h1>
+
+    <div class="info">
+        <p><strong>Всего валют:</strong> {{ total }}</p>
+        <p><strong>Последнее обновление:</strong> {{ last_update }}</p>
+        <a href="/currencies?update=1" class="update-btn">Обновить курсы</a>
+    </div>
+
+    {% if load_success is not none %}
+    {% if load_success %}
+        <div class="info" style="color:green;">
+            Курсы валют успешно обновлены.
+        </div>
+    {% else %}
+        <div class="info" style="color:red;">
+            Ошибка: курсы обновить не удалось.
+        </div>
+    {% endif %}
+
+{% endif %}
+
+    {% if currencies %}
+    <table>
+        <tr>
+            <th>Код</th>
+            <th>Цифровой код</th>
+            <th>Название</th>
+            <th>Курс (руб.)</th>
+            <th>Номинал</th>
+        </tr>
+        {% for currency in currencies %}
+        <tr>
+            <td><strong>{{ currency.char_code }}</strong></td>
+            <td>{{ currency.num_code }}</td>
+            <td>{{ currency.name }}</td>
+            <td>{{ "%.4f"|format(currency.value) }}</td>
+            <td>{{ currency.nominal }}</td>
+            <td><small>{{ currency.id }}</small></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>Нет данных о валютах. Попробуйте обновить курсы.</p>
+    {% endif %}
 </body>
 </html>

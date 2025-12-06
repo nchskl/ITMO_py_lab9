@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователь: {{ user.username }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        nav {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        nav a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #333;
+        }
+        .section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 10px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #2196F3;
+            color: white;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .unsubscribe {
+            background-color: #f44336;
+        }
+        .unsubscribe:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Главная</a>
+        <a href="/users">Все пользователи</a>
+        <a href="/currencies">Валюты</a>
+        <a href="/author">Об авторе</a>
+    </nav>
+
+    <h1>Пользователь: {{user.name}} (ID: {{user.id}})</h1>
+
+    <div class="section">
+        <h2>Текущие подписки ({{ total_subscribed }})</h2>
+        {% if subscribed_currencies %}
+        <table>
+            <tr>
+                <th>Код</th>
+                <th>Название</th>
+                <th>Курс (руб.)</th>
+                <th>Номинал</th>
+                <th>Действие</th>
+            </tr>
+            {% for currency in subscribed_currencies %}
+            <tr>
+                <td><strong>{{ currency.char_code }}</strong></td>
+                <td>{{ currency.name }}</td>
+                <td>{{ "%.4f"|format(currency.value) }}</td>
+                <td>{{ currency.nominal }}</td>
+                <td>
+                    <form method="POST" action="/subscribe" style="display: inline;">
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
+                        <input type="hidden" name="currency_id" value="{{ currency.id }}">
+                        <input type="hidden" name="action" value="unsubscribe">
+                        <button type="submit" class="unsubscribe">Отписать</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>У пользователя нет подписок на валюты.</p>
+        {% endif %}
+    </div>
+
+    <div class="section">
+        <h2>Доступные для подписки валюты ({{ total_available }})</h2>
+        {% if available_currencies %}
+        <table>
+            <tr>
+                <th>Код</th>
+                <th>Название</th>
+                <th>Курс (руб.)</th>
+                <th>Номинал</th>
+                <th>Действие</th>
+            </tr>
+            {% for currency in available_currencies %}
+            <tr>
+                <td><strong>{{ currency.char_code }}</strong></td>
+                <td>{{ currency.name }}</td>
+                <td>{{ "%.4f"|format(currency.value) }}</td>
+                <td>{{ currency.nominal }}</td>
+                <td>
+                    <form method="POST" action="/subscribe" style="display: inline;">
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
+                        <input type="hidden" name="currency_id" value="{{ currency.id }}">
+                        <input type="hidden" name="action" value="subscribe">
+                        <button type="submit">Подписать</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>Нет доступных валют для подписки или пользователь уже подписан на все валюты.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

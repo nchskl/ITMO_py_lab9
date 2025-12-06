@@ -1,21 +1,35 @@
-from myapp.models.user import User
-
-#недописанная модель
-
-class UserCurrency(User):
-    def __init__(self, uid: str = '504485', username: str = 'nchskl', currency: float = 0.0):
-        super().__init__(uid, username)
-        self.currency = currency
+class UserCurrency:
+    def __init__(self, ucid: int, user_id: int, currency_id: int):
+        self.ucid = ucid
+        self.user_id = user_id
+        self.currency_id = currency_id
 
     @property
-    def currency(self) -> float:
-        return self.__currency
+    def ucid(self) -> int:
+        return self.__ucid
 
-    @currency.setter
-    def currency(self, currency: float):
-        if not isinstance(currency, (int, float)):
-            raise TypeError("Currency must be a number.")
-        if currency < 0:
-            raise ValueError("Currency cannot be negative.")
-        self.__currency = float(currency)
+    @ucid.setter
+    def ucid(self, value: int):
+        if not isinstance(value, (str,int)):
+            raise TypeError("id must be an integer")
+        self.__ucid = str(value)
 
+    @property
+    def user_id(self) -> int:
+        return self.__user_id
+
+    @user_id.setter
+    def user_id(self, value: int):
+        if not isinstance(value, int):
+            raise TypeError("user_id must be an integer")
+        self.__user_id = value
+
+    @property
+    def currency_id(self) -> int:
+        return self.__currency_id
+
+    @currency_id.setter
+    def currency_id(self, value: int):
+        if not isinstance(value, int):
+            raise TypeError("currency_id must be an integer")
+        self.__currency_id = value

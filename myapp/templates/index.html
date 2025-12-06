@@ -1,10 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html><head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>CurrenciesListApp - Главная</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        nav {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        nav a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #333;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .card {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
+    <nav style="background-color: #FFE4B5; padding: 14px; text-align: center;">
+        <a href="/">Главная</a>
+        <a href="/users">Пользователи</a>
+        <a href="/currencies">Валюты</a>
+        <a href="/author">Об авторе</a>
+    </nav>
 
-</body>
-</html>
+    <h1 style="text-align: center;">Добро пожаловать в CurrenciesListApp!</h1>
+
+    <div class="card">
+        <h2>О приложении</h2>
+        <p><strong>Версия:</strong> 1.0.0</p>
+        <p><strong>Автор:</strong> </p>
+        <p><strong>Группа:</strong> P3120</p>
+    </div>
+
+    <div class="card">
+        <h2>Статистика</h2>
+        <p>Пользователей в системе: 3</p>
+        <p>Валют отслеживается: 0</p>
+    </div>
+
+    <div class="card">
+        <h2>Возможности</h2>
+        <ul>
+            <li>Просмотр курсов валют в реальном времени</li>
+            <li>Управление пользователями</li>
+            <li>Подписка на интересующие валюты</li>
+            <li>Отслеживание изменений курсов</li>
+        </ul>
+    </div>
+
+</body></html>
