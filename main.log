@@ -1,0 +1,10 @@
+2025-12-07 22:09:13 - INFO - Calling get_currencies args=() kwargs={}
+2025-12-07 22:09:13 - INFO - get_currencies finished, result len=55
+2025-12-07 22:09:16 - INFO - Calling get_currencies args=() kwargs={}
+2025-12-07 22:09:16 - INFO - get_currencies finished, result len=55
+2025-12-07 22:32:40 - INFO - Calling get_currencies args=() kwargs={}
+2025-12-07 22:32:41 - INFO - get_currencies finished, result len=55
+2025-12-07 22:33:18 - INFO - Calling get_currencies args=() kwargs={}
+2025-12-07 22:33:20 - INFO - get_currencies finished, result len=55
+2025-12-07 22:33:22 - INFO - Calling get_currencies args=() kwargs={}
+2025-12-07 22:33:22 - INFO - get_currencies finished, result len=55

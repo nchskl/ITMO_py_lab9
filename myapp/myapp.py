@@ -3,9 +3,9 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import parse_qs, urlparse
 from datetime import datetime
 
-from models import *
+from myapp.models import *
 
-from utils.currencies_api import get_currencies
+from myapp.utils.currencies_api import get_currencies
 
 env = Environment(
     loader=PackageLoader("myapp"),
